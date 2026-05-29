@@ -2,6 +2,9 @@
 
 대규모 프로젝트 PM(Project Manager)이 AI 코드어시스턴트(Gemini, Copilot 등)를 활용하여 요구사항 분석부터 시스템 아키텍처, Front-End, Back-End, DB 설계에 이르기까지 체계적으로 설계 산출물을 작성할 수 있도록 돕는 실무 가이드 및 템플릿 프로젝트입니다.
 
+### 🔗 라이브 데모 / 웹 대시보드
+👉 **[https://kucia10.github.io/AI-Analysis-Guide/](https://kucia10.github.io/AI-Analysis-Guide/)**
+
 ---
 
 ## 🗂️ 전체 목차 (Index)
