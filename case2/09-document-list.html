@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>분석/설계 문서 리스트 (컨버팅)</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-back">&larr; Case 2</a>
+        <span class="nav-sep">|</span>
+        <span class="nav-title">Case 2 &middot; 기존 프로젝트 컨버팅</span>
+        <span class="nav-indicator c2">전환</span>
+    </div>
+</nav>
+<div class="doc-header">
+    <div class="doc-header-inner">
+        <div class="doc-path"><a href="../index.html">전체</a> / <a href="index.html">Case 2</a> / 분석/설계 문서 리스트 (컨버팅)</div>
+        <h1>분석/설계 문서 리스트 (컨버팅)</h1>
+        <p class="doc-purpose">컨버팅 프로젝트 단계별 필수 산출물 20종을 우선순위와 파트 기준으로 정리한 목록입니다.</p>
+    </div>
+</div>
+<div class="container">
+    <section class="doc-section">
+        <h2>1. 산출물 리스트 개요</h2>
+        <p>기존 프로젝트 컨버팅은 착수, 현행분석, 전환설계 단계에서 문서 누락이 발생하면 일정 지연과 품질 저하로 바로 이어집니다. 아래 목록은 프로젝트 착수부터 전환 설계 완료까지 반드시 확보해야 하는 핵심 산출물 20종을 정리한 기준안입니다.</p>
+    </section>
+
+    <section class="doc-section">
+        <h2>2. 문서 목록</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>단계</th>
+                        <th>문서 ID</th>
+                        <th>문서명</th>
+                        <th>파트</th>
+                        <th>우선순위</th>
+                        <th>비고</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>착수</td><td>CV-001</td><td>프로젝트 착수보고서</td><td><span class="tag tag-pm">PM</span></td><td>Must</td><td>프로젝트 목표/범위/일정 확정</td></tr>
+                    <tr><td>착수</td><td>CV-002</td><td>컨버팅 계획서</td><td><span class="tag tag-all">ALL</span></td><td>Must</td><td>전환 추진 전략과 단계 정의</td></tr>
+                    <tr><td>착수</td><td>CV-003</td><td>형상/이행 관리 계획서</td><td><span class="tag tag-pm">PM</span><span class="tag tag-infra">INFRA</span></td><td>Must</td><td>형상, 배포, 이행 통제 기준</td></tr>
+
+                    <tr><td>현행분석</td><td>CV-010</td><td>현행 시스템 분석서</td><td><span class="tag tag-all">ALL</span></td><td>Must</td><td>전체 구조, 운영 방식, 제약사항 정리</td></tr>
+                    <tr><td>현행분석</td><td>CV-011</td><td>소스코드 분석서</td><td><span class="tag tag-fe">FE</span><span class="tag tag-be">BE</span></td><td>Must</td><td>모듈 구조, 의존성, 난이도 분석</td></tr>
+                    <tr><td>현행분석</td><td>CV-012</td><td>DB 분석서</td><td><span class="tag tag-db">DB</span></td><td>Must</td><td>스키마, 데이터 규모, SQL/프로시저 현황</td></tr>
+                    <tr><td>현행분석</td><td>CV-013</td><td>인프라 분석서</td><td><span class="tag tag-infra">INFRA</span></td><td>Must</td><td>서버, 네트워크, 배포 구조 분석</td></tr>
+                    <tr><td>현행분석</td><td>CV-014</td><td>화면 분석서</td><td><span class="tag tag-fe">FE</span></td><td>Must</td><td>화면 목록, 흐름, UI 복잡도 정리</td></tr>
+                    <tr><td>현행분석</td><td>CV-015</td><td>인터페이스 분석서</td><td><span class="tag tag-be">BE</span><span class="tag tag-infra">INFRA</span></td><td>Must</td><td>대내외 연계, 배치, 메시지 흐름 파악</td></tr>
+
+                    <tr><td>전환설계</td><td>CV-020</td><td>전환 범위/전략 정의서</td><td><span class="tag tag-pm">PM</span><span class="tag tag-all">ALL</span></td><td>Must</td><td>우선순위, 전환 방식, 제외 범위</td></tr>
+                    <tr><td>전환설계</td><td>CV-021</td><td>TO-BE 아키텍처</td><td><span class="tag tag-all">ALL</span><span class="tag tag-infra">INFRA</span></td><td>Must</td><td>신규 애플리케이션/인프라 구조</td></tr>
+                    <tr><td>전환설계</td><td>CV-022</td><td>DB 마이그레이션 설계</td><td><span class="tag tag-db">DB</span></td><td>Must</td><td>DBMS 전환, 스키마/데이터 이행 계획</td></tr>
+                    <tr><td>전환설계</td><td>CV-023</td><td>API 전환 설계</td><td><span class="tag tag-be">BE</span></td><td>Must</td><td>API 매핑, 인터페이스 계약, 역호환</td></tr>
+                    <tr><td>전환설계</td><td>CV-024</td><td>FE 전환 설계</td><td><span class="tag tag-fe">FE</span></td><td>Must</td><td>화면 전환, 컴포넌트 표준화</td></tr>
+                    <tr><td>전환설계</td><td>CV-025</td><td>BE 전환 설계</td><td><span class="tag tag-be">BE</span></td><td>Must</td><td>서비스 구조, 로직 이식 전략</td></tr>
+                    <tr><td>전환설계</td><td>CV-026</td><td>인프라 전환 설계</td><td><span class="tag tag-infra">INFRA</span></td><td>Must</td><td>배포/운영/관제 구조 전환</td></tr>
+                    <tr><td>전환설계</td><td>CV-027</td><td>보안 전환 설계</td><td><span class="tag tag-infra">SEC</span></td><td>Must</td><td>인증, 권한, 로그, 암호화 정책 반영</td></tr>
+                    <tr><td>전환설계</td><td>CV-028</td><td>영향도 분석서</td><td><span class="tag tag-all">ALL</span></td><td>Must</td><td>업무/시스템/조직 영향 범위 정리</td></tr>
+                    <tr><td>전환설계</td><td>CV-029</td><td>테스트 계획서</td><td><span class="tag tag-pm">PM</span><span class="tag tag-all">ALL</span></td><td>Must</td><td>동등성, 성능, 정합성 검증 계획</td></tr>
+                    <tr><td>전환설계</td><td>CV-030</td><td>컷오버 계획서</td><td><span class="tag tag-pm">PM</span><span class="tag tag-all">ALL</span></td><td>Must</td><td>이행 일정, 롤백, 승인 절차 정리</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+<div class="footer"><a href="index.html">&larr; Case 2 문서 목록으로</a></div>
+</body>
+</html>

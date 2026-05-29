@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 기반 PM 분석/설계 산출물</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+.hero {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 0 50px;
+    text-align: center;
+}
+.hero-inner { max-width: 720px; margin: 0 auto; padding: 0 32px; }
+.hero-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--primary-c1);
+    margin-bottom: 14px;
+}
+.hero h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    margin-bottom: 12px;
+}
+.hero p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+.case-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin: 40px 0;
+}
+.case-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+.case-card:hover {
+    box-shadow: 0 6px 28px rgba(0,0,0,0.08);
+    border-color: #b0b8c8;
+}
+.case-card-top {
+    padding: 32px 32px 20px;
+}
+.case-card-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 16px;
+}
+.case-card-num.c1 { background: var(--primary-c1); }
+.case-card-num.c2 { background: var(--primary-c2); }
+.case-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.case-card .card-desc { font-size: 13.5px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 14px; }
+.case-card .doc-count { font-size: 12px; color: var(--text-secondary); }
+.case-card .doc-count strong { color: var(--text); }
+.case-card-footer {
+    padding: 14px 32px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.case-card-footer.c1 { color: var(--primary-c1); }
+.case-card-footer.c2 { color: var(--primary-c2); }
+.case-card-footer .arrow { transition: transform 0.15s; }
+.case-card:hover .arrow { transform: translateX(3px); }
+.feature-section { margin: 56px 0 20px; }
+.feature-section h2 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+.feature-section > p { font-size: 13.5px; color: var(--text-secondary); margin-bottom: 20px; }
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+.feature-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 18px;
+    text-align: center;
+}
+.feature-item .fi-icon { font-size: 22px; margin-bottom: 8px; }
+.feature-item .fi-title { font-size: 12.5px; font-weight: 600; margin-bottom: 4px; }
+.feature-item .fi-desc { font-size: 11.5px; color: var(--text-secondary); line-height: 1.5; }
+@media (max-width: 700px) {
+    .case-grid { grid-template-columns: 1fr; }
+    .feature-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="hero">
+    <div class="hero-inner">
+        <div class="hero-badge">Project Management Guide</div>
+        <h1>AI 코드어시스턴트 기반<br>프로젝트 분석 · 설계 산출물</h1>
+        <p>대규모 프로젝트 PM이 AI 코드어시스턴트를 활용하여 체계적으로 분석/설계를 수행하기 위한<br>항목별 산출물 템플릿과 AI 프롬프트 모음입니다.</p>
+    </div>
+</div>
+<div class="container">
+    <div class="case-grid">
+        <a href="case1/index.html" class="case-card">
+            <div class="case-card-top">
+                <div class="case-card-num c1">1</div>
+                <h2>RFP 기반 분석 · 설계</h2>
+                <p class="card-desc">신규 RFP(제안요청서)를 기준으로 요구사항 분석부터 시스템 설계까지, 개발 파트별 Task · WBS · 시스템 구성 · 기술 스택 · DB/FE/BE 설계 산출물</p>
+                <p class="doc-count"><strong>9개</strong> 산출물 문서</p>
+            </div>
+            <div class="case-card-footer c1"><span>산출물 목록 보기</span><span class="arrow">&rarr;</span></div>
+        </a>
+        <a href="case2/index.html" class="case-card">
+            <div class="case-card-top">
+                <div class="case-card-num c2">2</div>
+                <h2>기존 프로젝트 컨버팅 분석 · 설계</h2>
+                <p class="card-desc">기존 시스템을 신규 시스템으로 전환하기 위한 현행 분석 · 전환 설계 · 마이그레이션 · 컷오버 계획까지 전환 프로젝트 전 영역 산출물</p>
+                <p class="doc-count"><strong>11개</strong> 산출물 문서</p>
+            </div>
+            <div class="case-card-footer c2"><span>산출물 목록 보기</span><span class="arrow">&rarr;</span></div>
+        </a>
+    </div>
+    <div class="feature-section">
+        <h2>산출물 구성</h2>
+        <p>각 Case는 다음 항목별로 개별 문서로 구성됩니다.</p>
+        <div class="feature-grid">
+            <div class="feature-item"><div class="fi-icon">&#128203;</div><div class="fi-title">파트별 Task</div><div class="fi-desc">PM/FE/BE/DB/Infra 역할별 작업 정의</div></div>
+            <div class="feature-item"><div class="fi-icon">&#128200;</div><div class="fi-title">WBS</div><div class="fi-desc">단계별 일정 계획과 마일스톤</div></div>
+            <div class="feature-item"><div class="fi-icon">&#127959;</div><div class="fi-title">시스템 구성안</div><div class="fi-desc">아키텍처 구성도와 인프라 설계</div></div>
+            <div class="feature-item"><div class="fi-icon">&#128270;</div><div class="fi-title">제품/플랫폼 검토</div><div class="fi-desc">기술 스택 비교 및 선정</div></div>
+            <div class="feature-item"><div class="fi-icon">&#128451;</div><div class="fi-title">DB 설계</div><div class="fi-desc">데이터 모델링과 마이그레이션</div></div>
+            <div class="feature-item"><div class="fi-icon">&#127912;</div><div class="fi-title">Front-End 설계</div><div class="fi-desc">UI/UX와 FE 아키텍처</div></div>
+            <div class="feature-item"><div class="fi-icon">&#128295;</div><div class="fi-title">Back-End 설계</div><div class="fi-desc">API와 비즈니스 로직</div></div>
+            <div class="feature-item"><div class="fi-icon">&#128196;</div><div class="fi-title">문서 리스트 + 프롬프트</div><div class="fi-desc">산출물 목록과 AI 프롬프트</div></div>
+        </div>
+    </div>
+</div>
+<div class="footer">&copy; 2026 AI 기반 PM 분석/설계 가이드 &middot; 모든 산출물은 프로젝트 특성에 맞게 커스터마이징하여 사용하십시오.</div>
+</body>
+</html>

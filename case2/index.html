@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case 2 - 기존 프로젝트 컨버팅 산출물</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.page-title { margin-bottom: 32px; }
+.page-title h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+.page-title p { font-size: 14px; color: var(--text-secondary); }
+.doc-list { display: grid; gap: 12px; }
+.doc-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 22px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s;
+}
+.doc-row:hover { border-color: var(--primary-c2); }
+.doc-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: var(--light-c2);
+    color: var(--primary-c2);
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.doc-info { flex: 1; }
+.doc-info .doc-name { font-size: 14px; font-weight: 600; }
+.doc-info .doc-desc { font-size: 12.5px; color: var(--text-secondary); }
+.doc-arrow { color: var(--text-secondary); font-size: 16px; }
+.doc-row:hover .doc-arrow { color: var(--primary-c2); }
+.phase-bar {
+    display: flex;
+    margin: 32px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+.phase-item {
+    flex: 1;
+    text-align: center;
+    padding: 14px 8px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--card);
+    border-right: 1px solid var(--border);
+}
+.phase-item:last-child { border-right: none; }
+.phase-item.active { background: var(--light-c2); color: var(--primary-c2); font-weight: 600; }
+</style>
+</head>
+<body>
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="../index.html" class="nav-back">&larr; 전체</a>
+        <span class="nav-sep">|</span>
+        <span class="nav-title">Case 2 &middot; 기존 프로젝트 컨버팅</span>
+        <span class="nav-indicator c2">전환</span>
+    </div>
+</nav>
+<div class="doc-header">
+    <div class="doc-header-inner">
+        <div class="doc-path"><a href="../index.html">전체</a> / Case 2</div>
+        <h1>기존 프로젝트 컨버팅 분석 · 설계 산출물</h1>
+        <p class="doc-purpose">기존 시스템을 신규 시스템으로 전환하기 위한 현행 분석부터 전환 설계, 마이그레이션, 컷오버 계획까지 11개 항목별 산출물 템플릿입니다.</p>
+    </div>
+</div>
+<div class="container">
+    <div class="phase-bar">
+        <div class="phase-item active">&#9312; 현행 분석</div>
+        <div class="phase-item">&#9313; 전환 설계</div>
+        <div class="phase-item">&#9314; 마이그레이션</div>
+        <div class="phase-item">&#9315; 컷오버</div>
+    </div>
+    <div class="page-title">
+        <h1>산출물 목록</h1>
+        <p>각 항목을 클릭하면 상세 문서를 확인할 수 있습니다.</p>
+    </div>
+    <div class="doc-list">
+        <a href="01-as-is-analysis.html" class="doc-row">
+            <span class="doc-num">01</span>
+            <div class="doc-info"><div class="doc-name">현행(AS-IS) 시스템 분석</div><div class="doc-desc">기존 시스템 구조, 소스코드, DB, 인프라 전수 조사 분석서</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="02-conversion-requirements.html" class="doc-row">
+            <span class="doc-num">02</span>
+            <div class="doc-info"><div class="doc-name">전환 요구사항 및 TO-BE 정의</div><div class="doc-desc">전환 범위, AS-IS vs TO-BE 비교 매트릭스, 리스크 평가</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="03-tasks.html" class="doc-row">
+            <span class="doc-num">03</span>
+            <div class="doc-info"><div class="doc-name">개발 파트별 Task 정의</div><div class="doc-desc">컨버팅 특화 Task: 현행분석 → 전환설계 → 전환실행 → 검증</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="04-wbs.html" class="doc-row">
+            <span class="doc-num">04</span>
+            <div class="doc-info"><div class="doc-name">WBS (Work Breakdown Structure)</div><div class="doc-desc">현행분석 → 전환설계 → 전환개발 → 전환테스트 → 컷오버</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="05-system-architecture.html" class="doc-row">
+            <span class="doc-num">05</span>
+            <div class="doc-info"><div class="doc-name">시스템 구성안 (TO-BE)</div><div class="doc-desc">AS-IS → TO-BE 변화 포인트, 신규 아키텍처, 인프라 구성</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="06-product-review.html" class="doc-row">
+            <span class="doc-num">06</span>
+            <div class="doc-info"><div class="doc-name">제품/플랫폼 검토</div><div class="doc-desc">전환 관점 기술 스택 비교, 이식성/호환성 평가</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="07-db-migration.html" class="doc-row">
+            <span class="doc-num">07</span>
+            <div class="doc-info"><div class="doc-name">DB 마이그레이션 설계</div><div class="doc-desc">DBMS 전환, 스키마 변환, ETL, 정합성 검증, 롤백 계획</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="08-fe-be-conversion.html" class="doc-row">
+            <span class="doc-num">08</span>
+            <div class="doc-info"><div class="doc-name">FE/BE 전환 설계</div><div class="doc-desc">화면 전환, API 매핑, 비즈니스 로직 이식, 인터페이스 전환</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="09-document-list.html" class="doc-row">
+            <span class="doc-num">09</span>
+            <div class="doc-info"><div class="doc-name">분석/설계 문서 리스트</div><div class="doc-desc">컨버팅 프로젝트 필수 산출물 20종</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="10-conversion-prep.html" class="doc-row">
+            <span class="doc-num">10</span>
+            <div class="doc-info"><div class="doc-name">전환 준비 문서 리스트</div><div class="doc-desc">기존 시스템 → 신규 시스템 전환을 위해 사전 준비해야 할 자료</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="11-prompts.html" class="doc-row">
+            <span class="doc-num">11</span>
+            <div class="doc-info"><div class="doc-name">산출물별 AI 프롬프트 예시</div><div class="doc-desc">8개 핵심 전환 산출물에 대한 AI 프롬프트 템플릿</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+    </div>
+</div>
+<div class="footer"><a href="../index.html">&larr; 전체 가이드로</a></div>
+</body>
+</html>

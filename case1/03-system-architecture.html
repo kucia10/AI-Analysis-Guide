@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시스템 구성안</title>
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a class="nav-back" href="index.html">&larr; Case 1</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-title">시스템 구성안</span>
+            <span class="nav-indicator c1">RFP</span>
+        </div>
+    </nav>
+
+    <header class="doc-header">
+        <div class="doc-header-inner">
+            <div class="doc-path"><a href="../index.html">전체</a> / <a href="index.html">Case 1</a> / 시스템 구성안</div>
+            <h1>시스템 구성안</h1>
+            <p class="doc-purpose">전체 시스템 아키텍처 구성도와 인프라 설계를 정리하여, 기능 요구사항과 비기능 요구사항을 동시에 만족하는 구조를 설명하기 위한 기준 문서다.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="doc-section">
+            <h2>1. 아키텍처 개요</h2>
+            <p>시스템 구성안은 서비스 흐름과 운영 구조를 동시에 설명해야 한다. 특히 RFP 기반 사업에서는 성능, 보안, 가용성, 확장성, 운영 효율을 설계 원칙으로 명확히 제시해야 심사와 수행 모두에 유리하다.</p>
+            <div class="info-box">
+                <strong>설계 원칙</strong>
+                <ul>
+                    <li>계층 분리: Presentation, API, Application, Data, Infrastructure 역할을 명확히 분리</li>
+                    <li>고가용성: 단일 장애 지점 최소화와 이중화 구성 확보</li>
+                    <li>보안 우선: 외부 공개 구간과 내부 업무 구간 분리, 최소 권한 원칙 적용</li>
+                    <li>운영 자동화: 배포, 모니터링, 장애 대응 체계의 자동화 강화</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="doc-section">
+            <h2>2. 계층별 구성 요소</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>계층</th>
+                            <th>구성요소</th>
+                            <th>역할</th>
+                            <th>검토 대상 기술</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Presentation</td><td>Web/Mobile UI, CDN</td><td>사용자 화면 제공, 정적 리소스 배포, 초기 응답 최적화</td><td>React, Next.js, Nginx, CloudFront</td></tr>
+                        <tr><td>API Gateway</td><td>API Gateway, WAF, 인증 필터</td><td>외부 요청 라우팅, 인증/인가, Rate Limit, 보안 통제</td><td>Kong, Nginx, AWS API Gateway</td></tr>
+                        <tr><td>Application</td><td>업무 서비스, 배치, 연계 모듈</td><td>비즈니스 로직 처리, 외부 시스템 연계, 비동기 처리</td><td>Spring Boot, NestJS, FastAPI, Kafka</td></tr>
+                        <tr><td>Data</td><td>RDBMS, Cache, Object Storage</td><td>업무 데이터 저장, 조회 성능 향상, 파일 저장</td><td>PostgreSQL, MySQL, Redis, S3</td></tr>
+                        <tr><td>Infrastructure</td><td>LB, VM/Container, Network, CI/CD</td><td>실행 환경 제공, 배포 자동화, 네트워크 통제</td><td>Kubernetes, ECS, Jenkins, GitHub Actions</td></tr>
+                        <tr><td>Monitoring</td><td>APM, Metrics, Log, Alert</td><td>시스템 상태 관측, 장애 탐지, 운영 분석</td><td>Datadog, Prometheus, Grafana, ELK</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="doc-section">
+            <h2>3. 시스템 구성도</h2>
+            <div class="example-box">
+                <div class="example-label">Mermaid Flowchart</div>
+                <pre>flowchart TD
+    U[사용자] --> CDN[CDN / 정적 리소스]
+    U --> WAF[WAF]
+    WAF --> LB[Load Balancer]
+    LB --> WEB[Presentation Server]
+    WEB --> GW[API Gateway]
+    GW --> APP1[Application Server A]
+    GW --> APP2[Application Server B]
+    APP1 --> CACHE[Redis Cache]
+    APP2 --> CACHE
+    APP1 --> DB[(PostgreSQL Cluster)]
+    APP2 --> DB
+    APP1 --> EXT[외부 연계 시스템]
+    APP2 --> EXT
+    APP1 --> LOG[Central Logging]
+    APP2 --> LOG
+    LOG --> MON[Monitoring / Alerting]</pre>
+            </div>
+            <p>위 구성은 외부 사용자의 요청을 WAF와 LB를 통해 분산 처리하고, Application 계층의 수평 확장과 Cache 활용으로 응답시간을 안정적으로 유지하는 구조를 보여준다.</p>
+        </section>
+
+        <section class="doc-section">
+            <h2>4. 네트워크/인프라 구성</h2>
+            <ul>
+                <li><strong>DMZ 분리:</strong> 외부 노출 구간은 WAF, LB, Reverse Proxy 등 최소 구성만 위치시키고, 업무 서버와 DB는 내부망에 배치한다.</li>
+                <li><strong>로드밸런싱:</strong> 무중단 운영을 위해 L7 로드밸런싱과 Health Check 기반 자동 제외 정책을 적용한다.</li>
+                <li><strong>서버 구성:</strong> Web/App 분리 또는 Container 기반 Microservice 구성을 선택하되, 운영 복잡도를 함께 검토한다.</li>
+                <li><strong>스토리지:</strong> 정적 파일과 백업 파일은 Object Storage, 트랜잭션 데이터는 고가용성 RDBMS에 저장한다.</li>
+                <li><strong>DR 전략:</strong> 정기 백업, 이중화, RPO/RTO 기준 정의, 재해복구 모의훈련 계획을 포함한다.</li>
+            </ul>
+            <div class="warn-box">DR은 단순 백업이 아니라 “복구 시간과 데이터 손실 허용 범위”를 수치로 정의해야 의미가 있다. RFP에 24x7 운영이 있으면 DR 수준도 함께 상향 검토해야 한다.</div>
+        </section>
+
+        <section class="doc-section">
+            <h2>5. 확장성 설계</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>항목</th>
+                            <th>전략</th>
+                            <th>적용 포인트</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Auto-scaling</td><td>CPU/메모리/요청량 기준의 자동 확장</td><td>Application Server, Worker, Batch</td></tr>
+                        <tr><td>CDN</td><td>정적 자산 글로벌/지역 캐싱</td><td>이미지, JS/CSS, 다운로드 파일</td></tr>
+                        <tr><td>Cache 전략</td><td>조회 빈도 높은 데이터에 대한 캐시 계층 적용</td><td>코드성 데이터, 공지 목록, 세션/토큰</td></tr>
+                        <tr><td>DB 확장</td><td>Read Replica, 파티셔닝, 아카이빙</td><td>대용량 조회, 이력성 데이터</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="example-box">
+                <div class="example-label">Example</div>
+                <p>사용자 피크가 특정 기간에 집중되는 민원/접수 서비스는 Auto-scaling과 Queue 기반 비동기 처리를 함께 설계해야 전체 장애 가능성을 줄일 수 있다.</p>
+            </div>
+        </section>
+
+        <section class="doc-section">
+            <h2>6. 보안 아키텍처</h2>
+            <p>보안은 별도 부가 기능이 아니라 전체 아키텍처의 기본 전제다. 인증·인가, 네트워크 접근제어, 데이터 암호화, 로그 감사, 비밀정보 관리, 취약점 대응이 함께 설계되어야 한다.</p>
+            <ul>
+                <li>인증/인가: SSO, MFA, Role 기반 권한 정책</li>
+                <li>네트워크 보안: Security Group, ACL, VPN, Bastion Host</li>
+                <li>데이터 보안: 개인정보/민감정보 암호화, Key 관리 분리</li>
+                <li>감사 추적: 관리자 행위 로그, API 접근 로그, 변경 이력 보관</li>
+                <li>운영 보안: 시크릿 매니저, 이미지 취약점 스캔, 배포 승인 정책</li>
+            </ul>
+        </section>
+
+        <section class="doc-section">
+            <h2>7. AI 프롬프트 — 시스템 구성안</h2>
+            <div class="prompt-box">
+                <div class="prompt-label">Prompt Template</div>
+                <pre>다음 RFP 정보를 기준으로 시스템 구성안을 작성해줘.
+
+- 서비스 유형:
+- 예상 사용자 수 / 트래픽:
+- 핵심 기능:
+- 외부 연계 시스템:
+- 보안 요구사항:
+- 운영/가용성 요구:
+- 클라우드 또는 온프레미스 제약:
+
+요구사항:
+1) 설계 원칙과 목표를 먼저 설명
+2) Presentation / API Gateway / Application / Data / Infrastructure / Monitoring 계층별 구성요소 표 작성
+3) Mermaid flowchart 형식의 시스템 구성도 예시 포함
+4) 네트워크/인프라, 확장성, 보안 아키텍처를 별도 섹션으로 설명
+5) RFP 검토 문서에 바로 반영 가능한 수준으로 실무형 문장 사용</pre>
+                <p class="prompt-note">예상 동시접속자, 데이터 보존기간, 망분리 여부를 함께 주면 아키텍처 권고안의 품질이 높아진다.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <a href="index.html">&larr; Case 1로 돌아가기</a>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FE/BE 전환 설계</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-back">&larr; Case 2</a>
+        <span class="nav-sep">|</span>
+        <span class="nav-title">Case 2 &middot; 기존 프로젝트 컨버팅</span>
+        <span class="nav-indicator c2">전환</span>
+    </div>
+</nav>
+<div class="doc-header">
+    <div class="doc-header-inner">
+        <div class="doc-path"><a href="../index.html">전체</a> / <a href="index.html">Case 2</a> / FE/BE 전환 설계</div>
+        <h1>FE/BE 전환 설계</h1>
+        <p class="doc-purpose">FE 화면 전환과 BE API/로직 전환을 병행 추진하기 위한 전략, 매핑, 역호환 방안을 정리한 설계 문서입니다.</p>
+    </div>
+</div>
+<div class="container">
+    <section class="doc-section">
+        <h2>1. FE 전환 전략 비교</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>전략</th>
+                        <th>설명</th>
+                        <th>장점</th>
+                        <th>단점</th>
+                        <th>적용 시기</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>전면 Rebuild</strong></td>
+                        <td>기존 화면을 신규 프레임워크로 일괄 재구축</td>
+                        <td>일관된 UX/코드 품질 확보</td>
+                        <td>초기 비용과 전환 리스크가 큼</td>
+                        <td>화면 수가 제한적이고 구조 혁신이 필요한 경우</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Strangler Fig</strong></td>
+                        <td>기존 화면을 유지하면서 기능 단위로 신규 화면으로 점진 전환</td>
+                        <td>단계별 배포와 리스크 분산 가능</td>
+                        <td>공존 구간의 복잡도 증가</td>
+                        <td>대규모 레거시를 운영 중단 없이 전환할 때</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Micro Frontend</strong></td>
+                        <td>도메인별 독립 배포 가능한 FE 모듈로 분리 전환</td>
+                        <td>조직/도메인 단위 병렬 개발 용이</td>
+                        <td>빌드/라우팅/디자인 통제가 어려움</td>
+                        <td>여러 팀이 병행 개발하고 도메인 경계가 명확할 때</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>2. BE 전환 전략 비교</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>전략</th>
+                        <th>설명</th>
+                        <th>장점</th>
+                        <th>단점</th>
+                        <th>적용 시기</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>리팩토링</strong></td>
+                        <td>기존 언어/프레임워크를 유지한 채 구조를 개선하며 전환</td>
+                        <td>학습 비용이 낮고 기존 자산 재사용 가능</td>
+                        <td>근본적 한계가 남을 수 있음</td>
+                        <td>기술 부채는 크지만 플랫폼 유지가 가능한 경우</td>
+                    </tr>
+                    <tr>
+                        <td><strong>언어/프레임워크 전환</strong></td>
+                        <td>핵심 서비스를 신규 언어/프레임워크로 재구현</td>
+                        <td>성능, 유지보수성, 채용 경쟁력 개선</td>
+                        <td>재학습과 회귀 테스트 비용이 큼</td>
+                        <td>현 플랫폼 단종, 생산성 저하, 운영 한계가 명확할 때</td>
+                    </tr>
+                    <tr>
+                        <td><strong>API 우선 전환</strong></td>
+                        <td>도메인 API부터 신규 구조로 분리하고 내부 로직을 단계적으로 치환</td>
+                        <td>대외 인터페이스 기준으로 전환 통제 가능</td>
+                        <td>내부 복잡성이 일정 기간 유지됨</td>
+                        <td>외부 연계가 많고 계약 기반 전환이 필요한 경우</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>3. FE 전환 상세</h2>
+        <h3>화면 전환 매핑 예시</h3>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>AS-IS 화면</th>
+                        <th>TO-BE 화면</th>
+                        <th>전환 방식</th>
+                        <th>우선순위</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>로그인 JSP</td><td>React 로그인 페이지</td><td>신규 개발 후 라우팅 전환</td><td>상</td></tr>
+                    <tr><td>주문 조회 화면</td><td>주문 통합 대시보드</td><td>Strangler Fig</td><td>상</td></tr>
+                    <tr><td>고객 상세 팝업</td><td>고객 상세 모달 컴포넌트</td><td>컴포넌트 단위 치환</td><td>중</td></tr>
+                    <tr><td>운영자 통계 화면</td><td>BI 연계 분석 화면</td><td>기능 재설계 후 전환</td><td>중</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <h3>컴포넌트 전환 계획</h3>
+        <ul>
+            <li>공통 UI(버튼, 입력폼, 모달, 테이블)부터 디자인 시스템 기반으로 표준화</li>
+            <li>업무 화면은 라우트 단위로 우선순위를 부여하고 재사용 가능한 컴포넌트로 분해</li>
+            <li>상태관리는 화면 복잡도에 따라 전역/도메인 스토어로 분리</li>
+            <li>기존 브라우저 호환 요구사항과 접근성 기준을 신규 FE 설계에 반영</li>
+        </ul>
+    </section>
+
+    <section class="doc-section">
+        <h2>4. BE 전환 상세</h2>
+        <h3>API 전환 매핑 예시</h3>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>AS-IS API</th>
+                        <th>TO-BE API</th>
+                        <th>변환 내용</th>
+                        <th>영향도</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>/legacy/login.do</td><td>/api/v1/auth/login</td><td>세션 방식 → 토큰 기반 인증</td><td>상</td></tr>
+                    <tr><td>/order/list.do</td><td>/api/v1/orders</td><td>조회 조건 표준화, 페이징 규격 통일</td><td>상</td></tr>
+                    <tr><td>/customer/detail.do</td><td>/api/v1/customers/{id}</td><td>식별자 경로화, 응답 스키마 정규화</td><td>중</td></tr>
+                    <tr><td>/stats/monthly.do</td><td>/api/v1/reports/monthly</td><td>배치 결과 조회 API로 재구성</td><td>중</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <h3>비즈니스 로직 이식 전략</h3>
+        <ul>
+            <li><strong>그대로 이식</strong>: 규칙이 안정적이고 외부 계약 영향이 큰 핵심 로직</li>
+            <li><strong>수정</strong>: 중복 제거, 예외 처리 보강, 트랜잭션 경계 조정이 필요한 로직</li>
+            <li><strong>재작성</strong>: 레거시 종속성이 심하거나 성능/확장성 개선이 필수인 로직</li>
+        </ul>
+    </section>
+
+    <section class="doc-section">
+        <h2>5. API 역호환성 전략</h2>
+        <p>대외 연동과 기존 FE의 안정적인 병행 운영을 위해 일정 기간 역호환 계층을 둡니다. 구버전 엔드포인트는 신규 서비스로 포워딩하되, 요청/응답 변환 어댑터를 두어 계약 차이를 흡수합니다.</p>
+        <ul>
+            <li>구버전 URL 유지 + 신규 API로 내부 라우팅</li>
+            <li>응답 필드명, 날짜 포맷, 코드값 변환 어댑터 제공</li>
+            <li>버전 헤더 또는 경로(`/v1`, `/v2`) 기반 점진 전환</li>
+            <li>Deprecated API 사용량 모니터링 후 단계적 종료</li>
+        </ul>
+    </section>
+
+    <section class="doc-section">
+        <h2>6. AI 프롬프트</h2>
+        <div class="prompt-box">
+            <div class="prompt-label">AI 프롬프트 — FE/BE 전환 설계</div>
+            <pre>당신은 레거시 애플리케이션 컨버팅 프로젝트의 FE/BE 전환 설계자입니다.
+
+입력 정보:
+- AS-IS 기술 스택과 화면/서비스 목록
+- TO-BE 기술 스택과 목표 아키텍처
+- 외부 연동 시스템, 인증 방식, 배포 제약
+- 우선 전환 대상 업무와 운영 중단 허용 범위
+
+다음 항목이 포함된 "FE/BE 전환 설계서"를 작성하세요.
+1. FE 전환 전략 비교와 선정 근거
+2. BE 전환 전략 비교와 선정 근거
+3. 화면 전환 매핑표와 우선순위
+4. 공통 컴포넌트/디자인 시스템 전환 계획
+5. API 전환 매핑표와 영향도 분석
+6. 비즈니스 로직 이식 전략(그대로 이식/수정/재작성)
+7. API 역호환성 및 병행 운영 방안
+8. 리스크, 테스트 포인트, 단계별 추진 순서
+
+실무 산출물 형식으로 표와 체크리스트를 적극 활용해 작성하세요.</pre>
+            <div class="prompt-note">입력에 화면 목록과 API 목록을 넣으면 전환 매핑표를 훨씬 구체적으로 생성할 수 있습니다.</div>
+        </div>
+    </section>
+</div>
+<div class="footer"><a href="index.html">&larr; Case 2 문서 목록으로</a></div>
+</body>
+</html>

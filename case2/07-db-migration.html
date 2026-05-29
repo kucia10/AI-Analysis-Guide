@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DB 마이그레이션 설계</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.mono { font-family: "SF Mono", "Fira Code", Consolas, monospace; }
+</style>
+</head>
+<body>
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-back">&larr; Case 2</a>
+        <span class="nav-sep">|</span>
+        <span class="nav-title">Case 2 &middot; 기존 프로젝트 컨버팅</span>
+        <span class="nav-indicator c2">전환</span>
+    </div>
+</nav>
+<div class="doc-header">
+    <div class="doc-header-inner">
+        <div class="doc-path"><a href="../index.html">전체</a> / <a href="index.html">Case 2</a> / DB 마이그레이션 설계</div>
+        <h1>DB 마이그레이션 설계</h1>
+        <p class="doc-purpose">DBMS 전환, 스키마/데이터 변환, 정합성 검증 계획을 통합적으로 정리하는 전환 설계 문서입니다.</p>
+    </div>
+</div>
+<div class="container">
+    <section class="doc-section">
+        <h2>1. DB 마이그레이션 개요</h2>
+        <div class="warn-box">
+            DB 마이그레이션은 컨버팅 프로젝트에서 가장 리스크가 큰 영역입니다. 데이터 손실, 타입 불일치, 배치 중단, 프로시저 오동작은 서비스 장애로 직결되므로 사전 분석, 반복 리허설, 정합성 검증 기준을 반드시 선행해야 합니다.
+        </div>
+        <p>DB 전환은 단순한 데이터 복사가 아니라 스키마 구조, SQL 호환성, 성능 튜닝 포인트, 배치 및 인터페이스 영향도까지 함께 다루는 작업입니다. 특히 운영 데이터가 누적된 레거시 환경일수록 예외 데이터와 히스토리 데이터의 처리 기준을 먼저 확정해야 합니다.</p>
+    </section>
+
+    <section class="doc-section">
+        <h2>2. 마이그레이션 프로세스</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>단계</th>
+                        <th>주요 활동</th>
+                        <th>핵심 산출물</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>단계 1. 현행 분석</strong></td>
+                        <td>DB 카탈로그 수집, 테이블/뷰/인덱스/시퀀스/프로시저 등 객체 전수 조사</td>
+                        <td>DB 객체 목록, 용량/증감 추이, 의존성 맵</td>
+                    </tr>
+                    <tr>
+                        <td><strong>단계 2. 호환성 분석</strong></td>
+                        <td>데이터타입 매핑, SQL 문법 차이, 함수/패키지 호환성 검토</td>
+                        <td>호환성 이슈 리스트, 변환 규칙서</td>
+                    </tr>
+                    <tr>
+                        <td><strong>단계 3. 스키마 변환</strong></td>
+                        <td>DDL 변환, PK/FK/제약조건 이관, 인덱스 재설계</td>
+                        <td>TO-BE DDL, 인덱스 설계서</td>
+                    </tr>
+                    <tr>
+                        <td><strong>단계 4. 데이터 변환</strong></td>
+                        <td>ETL 스크립트 작성, 코드값 표준화, 데이터 클렌징 수행</td>
+                        <td>적재 스크립트, 클렌징 규칙, 이행 배치 절차</td>
+                    </tr>
+                    <tr>
+                        <td><strong>단계 5. 프로시저 전환</strong></td>
+                        <td>PL/SQL → PL/pgSQL 변환 또는 애플리케이션 로직으로 이관</td>
+                        <td>프로시저 전환 목록, 이관 기준서</td>
+                    </tr>
+                    <tr>
+                        <td><strong>단계 6. 마이그레이션 실행</strong></td>
+                        <td>전체 이관, 병렬 적재, 인덱스 생성, 통계정보 갱신</td>
+                        <td>실행 로그, 이행 결과 리포트</td>
+                    </tr>
+                    <tr>
+                        <td><strong>단계 7. 검증</strong></td>
+                        <td>건수/합계/참조무결성/업무 시나리오 기반 정합성 확인</td>
+                        <td>정합성 검증 결과서, 보완 이슈 리스트</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>3. 데이터타입 매핑 예시</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Oracle</th>
+                        <th>PostgreSQL</th>
+                        <th>변환 메모</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>VARCHAR2(n)</td><td>VARCHAR(n)</td><td>길이 제한 동일하게 적용</td></tr>
+                    <tr><td>NVARCHAR2(n)</td><td>VARCHAR(n)</td><td>PostgreSQL은 UTF-8 기준으로 통합 관리</td></tr>
+                    <tr><td>CHAR(n)</td><td>CHAR(n)</td><td>고정 길이 유지 여부 검토</td></tr>
+                    <tr><td>NUMBER</td><td>NUMERIC</td><td>정밀도 미지정 컬럼은 사용처 분석 필요</td></tr>
+                    <tr><td>NUMBER(p,s)</td><td>NUMERIC(p,s)</td><td>금액/수량 컬럼은 반올림 규칙 확인</td></tr>
+                    <tr><td>DATE</td><td>TIMESTAMP</td><td>시분초 사용 여부에 따라 DATE로 축소 가능</td></tr>
+                    <tr><td>TIMESTAMP</td><td>TIMESTAMP</td><td>타임존 처리 정책 별도 확인</td></tr>
+                    <tr><td>CLOB</td><td>TEXT</td><td>LOB API 의존성 제거 필요</td></tr>
+                    <tr><td>BLOB</td><td>BYTEA</td><td>파일 저장 방식과 백업 용량 점검</td></tr>
+                    <tr><td>RAW(n)</td><td>BYTEA</td><td>암호화/해시 데이터는 길이와 인코딩 재검증</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>4. 데이터 정합성 검증 체크리스트</h2>
+        <ul>
+            <li>테이블별 총 건수 비교 및 증감 사유 확인</li>
+            <li>금액/수량 주요 컬럼의 합계 비교</li>
+            <li>필수값(Null 불가 컬럼) 누락 여부 점검</li>
+            <li>유니크 키/업무 키 중복 여부 확인</li>
+            <li>참조무결성(FK 기준 부모/자식 데이터) 점검</li>
+            <li>표본 샘플링을 통한 원천/대상 데이터 값 비교</li>
+            <li>주요 업무 시나리오 기준 비즈니스 규칙 검증</li>
+        </ul>
+    </section>
+
+    <section class="doc-section">
+        <h2>5. 검증 SQL 예시</h2>
+        <div class="example-box">
+            <div class="example-label">Example</div>
+            <pre class="mono">-- 1) 건수 비교
+SELECT 'CUSTOMER' AS table_name, COUNT(*) AS cnt FROM customer;
+
+-- 2) 금액 합계 비교
+SELECT SUM(order_amount) AS total_amount FROM orders;
+
+-- 3) 필수값 누락 점검
+SELECT COUNT(*) AS null_cnt
+FROM orders
+WHERE customer_id IS NULL;
+
+-- 4) 참조무결성 점검
+SELECT COUNT(*) AS orphan_cnt
+FROM order_item oi
+LEFT JOIN orders o ON oi.order_id = o.order_id
+WHERE o.order_id IS NULL;</pre>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>6. AI 프롬프트</h2>
+        <div class="prompt-box">
+            <div class="prompt-label">AI 프롬프트 — DB 마이그레이션 설계</div>
+            <pre>당신은 대규모 레거시 시스템 컨버팅 프로젝트의 DB 마이그레이션 아키텍트입니다.
+
+다음 정보를 바탕으로 "DB 마이그레이션 설계서"를 작성하세요.
+- AS-IS DBMS / TO-BE DBMS
+- 주요 테이블/뷰/시퀀스/프로시저 목록
+- 데이터 규모와 일별 증가량
+- 인터페이스 및 배치 영향도
+- 다운타임 허용 범위와 롤백 조건
+
+문서에는 반드시 다음 항목을 포함하세요.
+1. 마이그레이션 범위 및 전제조건
+2. 7단계 마이그레이션 프로세스
+3. 데이터타입 매핑 규칙
+4. 스키마 변환 및 인덱스 재설계 방안
+5. 데이터 이행 절차와 ETL 전략
+6. 프로시저/함수 전환 방안
+7. 정합성 검증 기준 및 검증 SQL 예시
+8. 리스크, 대응책, 롤백 계획
+
+표, 체크리스트, 예시 SQL을 포함해 실무 문서 형식으로 상세하게 작성하세요.</pre>
+            <div class="prompt-note">DBMS 종류와 데이터 규모를 추가로 넣으면 이행 절차와 검증 기준을 더 구체화할 수 있습니다.</div>
+        </div>
+    </section>
+</div>
+<div class="footer"><a href="index.html">&larr; Case 2 문서 목록으로</a></div>
+</body>
+</html>

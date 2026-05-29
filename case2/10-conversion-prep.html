@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전환 준비 문서 리스트</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-back">&larr; Case 2</a>
+        <span class="nav-sep">|</span>
+        <span class="nav-title">Case 2 &middot; 기존 프로젝트 컨버팅</span>
+        <span class="nav-indicator c2">전환</span>
+    </div>
+</nav>
+<div class="doc-header">
+    <div class="doc-header-inner">
+        <div class="doc-path"><a href="../index.html">전체</a> / <a href="index.html">Case 2</a> / 전환 준비 문서 리스트</div>
+        <h1>전환 준비 문서 리스트</h1>
+        <p class="doc-purpose">기존 시스템에서 신규 시스템으로 넘어가기 전 반드시 확보해야 할 사전 준비 자료와 작성 책임을 정리한 가이드입니다.</p>
+    </div>
+</div>
+<div class="container">
+    <section class="doc-section">
+        <h2>1. 전환 준비의 중요성</h2>
+        <p>전환 프로젝트는 개발 완료보다 준비 수준이 성공 여부를 좌우합니다. 현행 자료가 부족하면 전환 범위 누락이 생기고, 이행/롤백 계획이 부실하면 컷오버 시 장애 대응이 늦어집니다. 따라서 아래 준비 자료는 개발 착수 전부터 단계적으로 확보하고 최신 상태를 유지해야 합니다.</p>
+    </section>
+
+    <section class="doc-section">
+        <h2>2. 준비 자료 목록</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>문서/자료명</th>
+                        <th>목적</th>
+                        <th>작성 시기</th>
+                        <th>담당</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>현행 파악</td><td>시스템 구성도</td><td>서버, 네트워크, 애플리케이션 구조 파악</td><td>착수 직후</td><td>인프라/아키텍트</td></tr>
+                    <tr><td>현행 파악</td><td>기능 목록서</td><td>업무 기능 범위와 우선순위 정의</td><td>현행분석 초반</td><td>PM/업무 담당</td></tr>
+                    <tr><td>현행 파악</td><td>데이터 사전</td><td>주요 테이블/컬럼/코드값 기준 확보</td><td>현행분석 초반</td><td>DBA</td></tr>
+                    <tr><td>현행 파악</td><td>API 목록서</td><td>내부/외부 인터페이스 계약 파악</td><td>현행분석 초반</td><td>BE</td></tr>
+                    <tr><td>현행 파악</td><td>외부 연동 문서</td><td>연계 시스템별 호출 규격 및 장애 영향 확인</td><td>현행분석 중</td><td>BE/운영</td></tr>
+                    <tr><td>현행 파악</td><td>운영 이슈 대장</td><td>반복 장애와 개선 포인트 식별</td><td>현행분석 중</td><td>운영/품질</td></tr>
+
+                    <tr><td>전환 계획</td><td>전환 범위 합의서</td><td>포함/제외 범위와 의사결정 기준 확정</td><td>전환설계 시작 전</td><td>PM/고객</td></tr>
+                    <tr><td>전환 계획</td><td>데이터 마이그레이션 계획서</td><td>이행 대상, 절차, 검증 기준 정의</td><td>전환설계 단계</td><td>DBA</td></tr>
+                    <tr><td>전환 계획</td><td>컷오버 계획서</td><td>전환 일정과 작업 순서 통제</td><td>테스트 후반</td><td>PM</td></tr>
+                    <tr><td>전환 계획</td><td>롤백 계획서</td><td>실패 시 복귀 기준과 실행 절차 확보</td><td>컷오버 계획과 병행</td><td>PM/인프라/DBA</td></tr>
+                    <tr><td>전환 계획</td><td>병행 운영 계획서</td><td>구/신 시스템 공존 기간 운영 방안 정의</td><td>통합테스트 단계</td><td>운영/PM</td></tr>
+                    <tr><td>전환 계획</td><td>사용자 교육 계획서</td><td>변경 화면/업무 절차 교육 준비</td><td>오픈 전</td><td>업무 담당/PM</td></tr>
+
+                    <tr><td>검증</td><td>데이터 정합성 검증 기준서</td><td>건수/합계/업무 규칙 비교 기준 확정</td><td>마이그레이션 리허설 전</td><td>DBA/품질</td></tr>
+                    <tr><td>검증</td><td>기능 동등성 테스트 케이스</td><td>AS-IS와 TO-BE 결과 일치 여부 검증</td><td>통합테스트 준비 시</td><td>QA/업무 담당</td></tr>
+                    <tr><td>검증</td><td>성능 비교 분석서</td><td>응답속도, 처리량, 배치 시간 비교</td><td>성능테스트 후</td><td>성능 담당/BE</td></tr>
+
+                    <tr><td>승인</td><td>전환 승인 문서</td><td>오픈, 컷오버, 롤백 책임과 승인 주체 명확화</td><td>오픈 직전</td><td>고객/PM</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>3. 전환 준비 체크리스트 템플릿</h2>
+        <div class="example-box">
+            <div class="example-label">Example</div>
+            <ul>
+                <li>[ ] 현행 시스템 구성도 최신본 확보</li>
+                <li>[ ] 데이터 사전 및 코드값 정의서 확보</li>
+                <li>[ ] 외부 연동 기관별 테스트 일정 확정</li>
+                <li>[ ] 데이터 마이그레이션 리허설 1차 완료</li>
+                <li>[ ] 롤백 시나리오와 책임자 연락망 점검</li>
+                <li>[ ] 사용자 교육 자료 및 FAQ 배포 준비</li>
+                <li>[ ] 전환 승인 문서 서명 일정 확보</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>4. AI 프롬프트</h2>
+        <div class="prompt-box">
+            <div class="prompt-label">AI 프롬프트 — 전환 준비 문서 체크리스트</div>
+            <pre>당신은 레거시 시스템 컨버팅 프로젝트의 PMO 담당자입니다.
+
+아래 프로젝트 정보를 바탕으로 "전환 준비 문서 체크리스트"를 작성하세요.
+- 시스템 유형과 업무 특성
+- 전환 대상 범위
+- 대외 연계 수와 핵심 이해관계자
+- 오픈 일정과 컷오버 방식
+
+다음 형식으로 작성하세요.
+1. 전환 준비의 중요성 요약
+2. 현행 파악 / 전환 계획 / 검증 / 승인 관점의 준비 자료 목록
+3. 각 자료별 목적, 작성 시기, 담당자
+4. 누락 시 리스크
+5. 실제 프로젝트에서 바로 사용할 수 있는 체크리스트 템플릿
+
+표 형식과 체크박스 형식을 함께 사용해 실무 문서처럼 정리하세요.</pre>
+            <div class="prompt-note">대외 연계 수와 컷오버 방식(일괄/병행)을 넣으면 준비자료 우선순위를 더 현실적으로 조정할 수 있습니다.</div>
+        </div>
+    </section>
+</div>
+<div class="footer"><a href="index.html">&larr; Case 2 문서 목록으로</a></div>
+</body>
+</html>

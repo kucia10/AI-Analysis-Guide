@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case 1 - RFP 기반 분석/설계 산출물</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+.page-title { margin-bottom: 32px; }
+.page-title h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+.page-title p { font-size: 14px; color: var(--text-secondary); }
+.doc-list { display: grid; gap: 12px; }
+.doc-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 22px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s;
+}
+.doc-row:hover { border-color: var(--primary-c1); }
+.doc-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: var(--light-c1);
+    color: var(--primary-c1);
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.doc-info { flex: 1; }
+.doc-info .doc-name { font-size: 14px; font-weight: 600; }
+.doc-info .doc-desc { font-size: 12.5px; color: var(--text-secondary); }
+.doc-arrow { color: var(--text-secondary); font-size: 16px; }
+.doc-row:hover .doc-arrow { color: var(--primary-c1); }
+.phase-bar {
+    display: flex;
+    margin: 32px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+.phase-item {
+    flex: 1;
+    text-align: center;
+    padding: 14px 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--card);
+    border-right: 1px solid var(--border);
+}
+.phase-item:last-child { border-right: none; }
+.phase-item.active { background: var(--light-c1); color: var(--primary-c1); font-weight: 600; }
+</style>
+</head>
+<body>
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="../index.html" class="nav-back">&larr; 전체</a>
+        <span class="nav-sep">|</span>
+        <span class="nav-title">Case 1 &middot; RFP 기반 분석/설계</span>
+        <span class="nav-indicator c1">RFP</span>
+    </div>
+</nav>
+<div class="doc-header">
+    <div class="doc-header-inner">
+        <div class="doc-path"><a href="../index.html">전체</a> / Case 1</div>
+        <h1>RFP 기반 분석 · 설계 산출물</h1>
+        <p class="doc-purpose">신규 RFP(제안요청서)를 기준으로 요구사항 분석부터 시스템 설계까지 수행하기 위한 9개 항목별 산출물 템플릿입니다.<br>각 문서는 예시 내용과 AI 프롬프트를 함께 제공합니다.</p>
+    </div>
+</div>
+<div class="container">
+    <div class="phase-bar">
+        <div class="phase-item active">&#9312; 분석</div>
+        <div class="phase-item">&#9313; Task &amp; WBS</div>
+        <div class="phase-item">&#9314; 시스템 설계</div>
+        <div class="phase-item">&#9315; 기술 검토</div>
+        <div class="phase-item">&#9316; 산출물</div>
+    </div>
+    <div class="page-title">
+        <h1>산출물 목록</h1>
+        <p>각 항목을 클릭하면 상세 문서를 확인할 수 있습니다.</p>
+    </div>
+    <div class="doc-list">
+        <a href="01-tasks.html" class="doc-row">
+            <span class="doc-num">01</span>
+            <div class="doc-info"><div class="doc-name">개발 파트별 Task 정의</div><div class="doc-desc">PM / FE / BE / DB / Infra 각 파트의 역할별 작업 정의서</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="02-wbs.html" class="doc-row">
+            <span class="doc-num">02</span>
+            <div class="doc-info"><div class="doc-name">WBS (Work Breakdown Structure)</div><div class="doc-desc">착수 → 분석 → 설계 → 개발 → 테스트 → 이행 전체 일정</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="03-system-architecture.html" class="doc-row">
+            <span class="doc-num">03</span>
+            <div class="doc-info"><div class="doc-name">시스템 구성안</div><div class="doc-desc">전체 시스템 아키텍처, 계층별 구성, 네트워크/인프라 설계</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="04-product-review.html" class="doc-row">
+            <span class="doc-num">04</span>
+            <div class="doc-info"><div class="doc-name">제품/플랫폼 검토</div><div class="doc-desc">기술 스택 비교 매트릭스, FE/BE/DB/Infra 프레임워크 선정</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="05-database.html" class="doc-row">
+            <span class="doc-num">05</span>
+            <div class="doc-info"><div class="doc-name">DB 설계</div><div class="doc-desc">개념적/논리적/물리적 데이터 모델링, ERD, DDL 스크립트</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="06-frontend.html" class="doc-row">
+            <span class="doc-num">06</span>
+            <div class="doc-info"><div class="doc-name">Front-End 설계</div><div class="doc-desc">FE 아키텍처, 컴포넌트 구조, 상태관리, 화면 정의, 라우팅</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="07-backend.html" class="doc-row">
+            <span class="doc-num">07</span>
+            <div class="doc-info"><div class="doc-name">Back-End 설계</div><div class="doc-desc">BE 아키텍처, API 명세, 인증/인가, 비즈니스 로직 설계</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="08-document-list.html" class="doc-row">
+            <span class="doc-num">08</span>
+            <div class="doc-info"><div class="doc-name">분석/설계 문서 리스트</div><div class="doc-desc">단계별 필수 산출물 목록 20종</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+        <a href="09-prompts.html" class="doc-row">
+            <span class="doc-num">09</span>
+            <div class="doc-info"><div class="doc-name">산출물별 AI 프롬프트 예시</div><div class="doc-desc">8개 핵심 산출물에 대한 AI 코드어시스턴트 프롬프트 템플릿</div></div>
+            <span class="doc-arrow">&rarr;</span>
+        </a>
+    </div>
+</div>
+<div class="footer"><a href="../index.html">&larr; 전체 가이드로</a></div>
+</body>
+</html>

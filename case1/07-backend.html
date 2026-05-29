@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Back-End 설계</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-back">&larr; Case 1</a>
+        <span class="nav-sep">|</span>
+        <span class="nav-title">Back-End 설계</span>
+        <span class="nav-indicator c1">RFP</span>
+    </div>
+</nav>
+
+<div class="doc-header">
+    <div class="doc-header-inner">
+        <div class="doc-path"><a href="../index.html">전체</a> / <a href="index.html">Case 1</a> / Back-End 설계</div>
+        <h1>Back-End 설계</h1>
+        <p class="doc-purpose">BE 아키텍처, API 명세, 인증/인가 체계, 비즈니스 로직 설계를 정리하여 안정적인 서버 구조와 연계 개발 기준을 정의하는 문서입니다.</p>
+    </div>
+</div>
+
+<div class="container">
+    <section class="doc-section">
+        <h2>1. BE 아키텍처 개요</h2>
+        <p>본 프로젝트의 Back-End는 Layered Architecture를 기본 원칙으로 하며, Controller → Service → Repository 계층으로 책임을 분리합니다. Controller는 요청/응답과 입력 검증을 담당하고, Service는 비즈니스 규칙과 트랜잭션을 제어하며, Repository는 데이터 영속성 처리를 담당합니다.</p>
+        <p>이 구조는 기능 확장 시 계층별 영향 범위를 최소화하고, 테스트와 유지보수성을 높이는 데 유리합니다. 공통 인증, 예외처리, 로깅, API 문서화는 횡단 관심사로 별도 공통 모듈화합니다.</p>
+    </section>
+
+    <section class="doc-section">
+        <h2>2. BE 아키텍처 설계 표</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th>설계 내용</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>아키텍처 패턴</td><td>Layered Architecture 기반으로 Controller, Service, Repository 책임 분리</td></tr>
+                    <tr><td>프레임워크</td><td>Spring Boot 또는 NestJS 등 표준 프레임워크 채택, DI 및 모듈 구조 활용</td></tr>
+                    <tr><td>API 스타일</td><td>RESTful API + JSON 응답 표준 적용, 자원 중심 URI 설계</td></tr>
+                    <tr><td>인증/인가</td><td>JWT 기반 인증과 RBAC(Role-Based Access Control) 기반 권한 검증</td></tr>
+                    <tr><td>ORM</td><td>JPA/TypeORM/Prisma 등 ORM 사용, 도메인 모델과 영속 계층의 매핑 관리</td></tr>
+                    <tr><td>예외처리</td><td>공통 예외 핸들러를 통해 표준 에러 코드와 메시지 포맷 일원화</td></tr>
+                    <tr><td>로깅</td><td>요청 추적 ID, 사용자 ID, 실행 시간 기반 구조적 로깅 적용</td></tr>
+                    <tr><td>테스트</td><td>단위 테스트, 통합 테스트, API 테스트를 계층별로 분리 운영</td></tr>
+                    <tr><td>API 문서</td><td>OpenAPI(Swagger) 기반 자동 문서화 및 배포 환경 연동</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>3. API 설계 표준</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>메서드</th>
+                        <th>경로</th>
+                        <th>설명</th>
+                        <th>요청</th>
+                        <th>응답</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>GET</td><td>/api/users</td><td>사용자 목록 조회</td><td>query: page, size, keyword</td><td>200 OK + 사용자 목록 페이징 데이터</td></tr>
+                    <tr><td>GET</td><td>/api/users/{id}</td><td>사용자 상세 조회</td><td>path: id</td><td>200 OK + 사용자 상세 객체</td></tr>
+                    <tr><td>POST</td><td>/api/users</td><td>사용자 등록</td><td>body: 사용자 생성 DTO</td><td>201 Created + 생성 결과</td></tr>
+                    <tr><td>PUT</td><td>/api/users/{id}</td><td>사용자 수정</td><td>path: id, body: 수정 DTO</td><td>200 OK + 수정 결과</td></tr>
+                    <tr><td>DELETE</td><td>/api/users/{id}</td><td>사용자 삭제</td><td>path: id</td><td>204 No Content</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>4. API 목록 예시</h2>
+        <p>아래 API는 OpenAPI 스타일 설명을 기준으로 핵심 비즈니스 자원에 대한 예시 목록입니다.</p>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>API</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>POST /api/auth/login</td><td>사용자 로그인 및 JWT 발급</td></tr>
+                    <tr><td>POST /api/auth/refresh</td><td>Refresh Token 기반 Access Token 재발급</td></tr>
+                    <tr><td>GET /api/me</td><td>현재 로그인 사용자 정보 조회</td></tr>
+                    <tr><td>GET /api/users</td><td>사용자 목록 조회 (검색/페이징 지원)</td></tr>
+                    <tr><td>POST /api/users</td><td>관리자용 사용자 등록</td></tr>
+                    <tr><td>GET /api/users/{id}</td><td>사용자 상세 조회</td></tr>
+                    <tr><td>PUT /api/users/{id}</td><td>사용자 정보 수정</td></tr>
+                    <tr><td>DELETE /api/users/{id}</td><td>사용자 비활성화 또는 삭제</td></tr>
+                    <tr><td>GET /api/boards</td><td>게시판 목록 조회</td></tr>
+                    <tr><td>POST /api/boards</td><td>게시글 등록</td></tr>
+                    <tr><td>GET /api/boards/{id}</td><td>게시글 상세 조회</td></tr>
+                    <tr><td>PUT /api/boards/{id}</td><td>게시글 수정</td></tr>
+                    <tr><td>DELETE /api/boards/{id}</td><td>게시글 삭제</td></tr>
+                    <tr><td>GET /api/notices</td><td>공지사항 목록 조회</td></tr>
+                    <tr><td>POST /api/notices</td><td>공지사항 등록</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>5. 인증/인가 흐름</h2>
+        <p>인증은 JWT 기반으로 처리합니다. 사용자가 로그인하면 서버는 Access Token과 Refresh Token을 발급하고, 이후 요청은 Authorization 헤더의 Bearer Token을 통해 인증됩니다. Access Token 만료 시 Refresh Token을 통해 재발급 절차를 수행합니다.</p>
+        <p>인가 체계는 RBAC를 적용합니다. 예를 들어 Admin은 사용자 관리, 공지사항 관리, 권한 부여 기능에 접근 가능하며, 일반 User는 게시판 조회/등록, 마이페이지 기능에 접근 가능합니다. 각 API 엔드포인트는 역할별 접근 제어 정책을 명시적으로 선언합니다.</p>
+        <div class="warn-box">
+            인증 실패(401)와 권한 부족(403)은 반드시 구분하여 응답해야 하며, 감사 로그에는 사용자 ID, 권한, 요청 자원 정보를 함께 남깁니다.
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>6. 공통 에러 응답 포맷 예시</h2>
+        <div class="example-box">
+            <div class="example-label">Error Response</div>
+            <pre>{
+  "timestamp": "2026-05-28T10:30:00+09:00",
+  "status": 400,
+  "code": "USR_001",
+  "message": "요청 파라미터가 올바르지 않습니다.",
+  "path": "/api/users",
+  "errors": [
+    {
+      "field": "email",
+      "reason": "유효한 이메일 형식이 아닙니다."
+    }
+  ]
+}</pre>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>7. 패키지 구조 예시</h2>
+        <div class="example-box">
+            <div class="example-label">Example</div>
+            <pre>src/
+  controller/
+  service/
+  repository/
+  domain/
+  dto/
+  config/
+  common/
+    exception/
+    security/
+    logging/</pre>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>8. AI 프롬프트 — BE 아키텍처 및 API 설계</h2>
+        <div class="prompt-box">
+            <div class="prompt-label">AI Prompt</div>
+            <pre>다음 RFP 요구사항을 바탕으로 Back-End 설계 문서를 작성해줘.
+
+[입력 정보]
+- 프로젝트 개요:
+- 사용자 역할 및 권한:
+- 핵심 업무 기능:
+- 외부 연계 대상:
+- 보안/감사 요구사항:
+
+[작성 조건]
+1. Layered Architecture 기준으로 Controller, Service, Repository 구조를 설명할 것
+2. 프레임워크, ORM, 인증/인가, 예외처리, 로깅, 테스트, API 문서 전략을 표로 정리할 것
+3. CRUD 기준의 API 설계 표준과 RESTful API 목록 10개 이상을 포함할 것
+4. JWT + RBAC 기반 인증/인가 흐름을 설명할 것
+5. 공통 에러 응답 포맷 예시와 패키지 구조 예시를 제시할 것
+
+출력은 실무용 한국어 설계 문서 형식으로 작성해줘.</pre>
+            <div class="prompt-note">RFP 원문, 사용자 권한 체계, 외부 인터페이스 목록을 함께 제공하면 API 설계 수준이 더 구체화됩니다.</div>
+        </div>
+    </section>
+</div>
+
+<div class="footer"><a href="index.html">&larr; Case 1 목록으로</a></div>
+</body>
+</html>

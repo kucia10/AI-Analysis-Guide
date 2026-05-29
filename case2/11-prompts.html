@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>산출물별 AI 프롬프트 예시 (컨버팅)</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-back">&larr; Case 2</a>
+        <span class="nav-sep">|</span>
+        <span class="nav-title">Case 2 &middot; 기존 프로젝트 컨버팅</span>
+        <span class="nav-indicator c2">전환</span>
+    </div>
+</nav>
+<div class="doc-header">
+    <div class="doc-header-inner">
+        <div class="doc-path"><a href="../index.html">전체</a> / <a href="index.html">Case 2</a> / 산출물별 AI 프롬프트 예시 (컨버팅)</div>
+        <h1>산출물별 AI 프롬프트 예시 (컨버팅)</h1>
+        <p class="doc-purpose">8개 핵심 전환 산출물에 대해 AI 코드어시스턴트에 바로 입력할 수 있는 프롬프트 템플릿을 정리했습니다.</p>
+    </div>
+</div>
+<div class="container">
+    <section class="doc-section">
+        <h2>1. 현행 시스템 분석서 프롬프트 (CV-010)</h2>
+        <div class="prompt-box">
+            <div class="prompt-label">CV-010 Prompt</div>
+            <pre>당신은 레거시 시스템 분석 컨설턴트입니다.
+
+다음 정보를 기반으로 "현행 시스템 분석서"를 작성하세요.
+- 시스템 개요, 주요 사용자, 핵심 업무
+- 애플리케이션 구조, 배치, 외부 연계
+- 운영 환경, 장애 이력, 기술적 제약
+
+문서에는 시스템 구성, 기능 목록, 기술 스택, 인터페이스, 운영 이슈, 전환 시 주요 리스크를 포함하고 표와 체크리스트를 사용해 실무 문서 형식으로 작성하세요.</pre>
+            <div class="prompt-note">현행 시스템 분석은 이후 모든 전환 설계의 기준이 되므로 구조, 운영 제약, 반복 장애를 함께 입력하는 것이 중요합니다.</div>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>2. 전환 범위 및 전략 정의서 프롬프트 (CV-020)</h2>
+        <div class="prompt-box">
+            <div class="prompt-label">CV-020 Prompt</div>
+            <pre>당신은 컨버팅 프로젝트 PM입니다.
+
+아래 입력을 바탕으로 "전환 범위 및 전략 정의서"를 작성하세요.
+- AS-IS와 TO-BE 개요
+- 포함 범위 / 제외 범위
+- 단계별 전환 방식(일괄, 점진, 병행)
+- 일정 제약과 리스크
+
+산출물에는 범위 정의, 우선순위, 전략 비교, 의사결정 기준, 성공 지표, 리스크 대응 방안을 포함하세요.</pre>
+            <div class="prompt-note">전환 범위와 제외 범위를 같이 주면 산출물이 훨씬 명확해집니다.</div>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>3. DB 마이그레이션 설계서 프롬프트 (CV-022)</h2>
+        <div class="prompt-box">
+            <div class="prompt-label">CV-022 Prompt</div>
+            <pre>당신은 DB 마이그레이션 전문가입니다.
+
+다음 정보를 바탕으로 "DB 마이그레이션 설계서"를 작성하세요.
+- AS-IS DBMS / TO-BE DBMS
+- 주요 테이블과 데이터 규모
+- 프로시저, 배치, 인터페이스 영향도
+- 다운타임 허용 시간과 롤백 조건
+
+7단계 마이그레이션 프로세스, 데이터타입 매핑, ETL 전략, 프로시저 전환, 정합성 검증 기준, 검증 SQL, 리스크와 대응책을 포함해 작성하세요.</pre>
+            <div class="prompt-note">테이블 수, 데이터 용량, 일별 증가량을 같이 주면 실행 전략과 검증 포인트가 더 실무적으로 생성됩니다.</div>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>4. 영향도 분석서 프롬프트 (CV-028)</h2>
+        <div class="prompt-box">
+            <div class="prompt-label">CV-028 Prompt</div>
+            <pre>당신은 시스템 영향도 분석 전문가입니다.
+
+입력:
+- 변경 대상 기능/화면/API/DB 객체 목록
+- 대내외 연계 시스템
+- 사용자 조직과 운영 프로세스
+
+"영향도 분석서"를 작성하세요. 시스템, 업무, 조직, 데이터, 인터페이스 관점의 영향 범위를 구분하고, 영향도 상/중/하 기준과 대응 우선순위를 표 형식으로 제시하세요.</pre>
+            <div class="prompt-note">연계 시스템과 사용자 조직을 입력하면 기술 영향도뿐 아니라 운영 영향도까지 같이 분석할 수 있습니다.</div>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>5. 컷오버 계획서 프롬프트 (CV-030)</h2>
+        <div class="prompt-box">
+            <div class="prompt-label">CV-030 Prompt</div>
+            <pre>당신은 컨버팅 프로젝트 컷오버 매니저입니다.
+
+아래 정보를 바탕으로 "컷오버 계획서"를 작성하세요.
+- 오픈 일정
+- 컷오버 방식(일괄/병행/점진)
+- 데이터 이행 순서
+- 시스템 중단 허용 시간
+- 승인 및 보고 체계
+
+시간대별 작업표, 담당자, 사전 점검, 당일 실행, 실패 기준, 롤백 절차, 의사소통 계획을 포함해 실무형 문서로 작성하세요.</pre>
+            <div class="prompt-note">시간대별 세부 작업과 승인 주체를 함께 입력하면 실제 실행용 문서 수준으로 다듬기 좋습니다.</div>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>6. 전환 테스트 계획서 프롬프트 (CV-029)</h2>
+        <div class="prompt-box">
+            <div class="prompt-label">CV-029 Prompt</div>
+            <pre>당신은 전환 테스트 리더입니다.
+
+다음 정보를 토대로 "전환 테스트 계획서"를 작성하세요.
+- 핵심 업무 시나리오
+- 기능 동등성 검증 대상
+- 데이터 정합성 검증 대상
+- 성능 비교 대상
+- 테스트 일정과 참여 조직
+
+문서에는 테스트 범위, 유형, 케이스 분류, 합격 기준, 결함 관리, 리허설 계획을 포함하세요.</pre>
+            <div class="prompt-note">핵심 업무 시나리오와 성능 기준치를 함께 주면 테스트 우선순위를 더 잘 정할 수 있습니다.</div>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>7. FE/BE 전환 설계서 프롬프트 (CV-024/025)</h2>
+        <div class="prompt-box">
+            <div class="prompt-label">CV-024 / CV-025 Prompt</div>
+            <pre>당신은 레거시 애플리케이션 현대화 설계자입니다.
+
+입력 정보:
+- AS-IS 화면 목록과 API 목록
+- TO-BE 기술 스택
+- 인증 방식, 외부 연계, 병행 운영 조건
+
+"FE/BE 전환 설계서"를 작성하세요.
+1. FE 전략 비교와 선정 근거
+2. 화면 전환 매핑표
+3. 공통 컴포넌트/디자인 시스템 계획
+4. BE 전략 비교와 선정 근거
+5. API 전환 매핑표
+6. 비즈니스 로직 이식 전략
+7. 역호환성 및 단계별 전환 방안</pre>
+            <div class="prompt-note">화면/API 목록을 붙여 넣으면 매핑표 초안을 빠르게 얻을 수 있습니다.</div>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2>8. 데이터 정합성 검증 기준서 프롬프트</h2>
+        <div class="prompt-box">
+            <div class="prompt-label">Data Integrity Prompt</div>
+            <pre>당신은 데이터 품질 검증 담당자입니다.
+
+아래 정보를 기반으로 "데이터 정합성 검증 기준서"를 작성하세요.
+- 이행 대상 테이블/도메인 목록
+- 주요 검증 컬럼과 업무 규칙
+- 기준 데이터 시점과 검증 일정
+
+건수, 합계, 필수값, 유니크, 참조무결성, 샘플 비교, 비즈니스 규칙 검증 기준을 표로 정리하고, 검증 SQL 예시와 결과 판정 기준까지 포함하세요.</pre>
+            <div class="prompt-note">업무 규칙과 검증 컬럼을 구체적으로 줄수록 AI가 더 현실적인 검증 기준서를 만들어 줍니다.</div>
+        </div>
+    </section>
+</div>
+<div class="footer"><a href="index.html">&larr; Case 2 문서 목록으로</a></div>
+</body>
+</html>

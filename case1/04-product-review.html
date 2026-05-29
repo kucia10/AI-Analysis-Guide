@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제품/플랫폼 검토</title>
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a class="nav-back" href="index.html">&larr; Case 1</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-title">제품/플랫폼 검토</span>
+            <span class="nav-indicator c1">RFP</span>
+        </div>
+    </nav>
+
+    <header class="doc-header">
+        <div class="doc-header-inner">
+            <div class="doc-path"><a href="../index.html">전체</a> / <a href="index.html">Case 1</a> / 제품/플랫폼 검토</div>
+            <h1>제품/플랫폼 검토</h1>
+            <p class="doc-purpose">기술 스택 비교 분석과 선정 기준을 정리하여, 제안 단계 또는 착수 초기의 기술 의사결정을 구조적으로 설명하기 위한 검토 문서다.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="doc-section">
+            <h2>1. 기술 스택 검토 매트릭스</h2>
+            <p>기술 선정은 단순 선호가 아니라 인력 역량, 라이선스, 운영성, 확장성, 생태계, 요구사항 적합성을 함께 고려해야 한다. 아래 표는 RFP 검토 문서에서 자주 사용하는 대표 기술 비교 예시다.</p>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>기술</th>
+                            <th>장점</th>
+                            <th>단점</th>
+                            <th>라이선스</th>
+                            <th>권장</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="tag tag-fe">FE</span></td><td>React</td><td>생태계가 크고 컴포넌트 재사용성과 인력 수급이 좋다.</td><td>구조 표준을 별도로 정하지 않으면 프로젝트별 편차가 크다.</td><td>MIT</td><td>○</td></tr>
+                        <tr><td><span class="tag tag-fe">FE</span></td><td>Vue</td><td>학습 곡선이 낮고 빠른 화면 개발에 유리하다.</td><td>대규모 구조화와 기업형 레퍼런스는 React 대비 상대적으로 적다.</td><td>MIT</td><td>△</td></tr>
+                        <tr><td><span class="tag tag-fe">FE</span></td><td>Next.js</td><td>SSR/SSG, 라우팅, 성능 최적화 기능이 내장되어 있다.</td><td>런타임과 배포 전략 이해가 필요하고 단순 SPA에는 과할 수 있다.</td><td>MIT</td><td>○</td></tr>
+
+                        <tr><td><span class="tag tag-be">BE</span></td><td>Spring Boot</td><td>엔터프라이즈 기능, 안정성, 보안/배치/연계 레퍼런스가 풍부하다.</td><td>초기 설정과 운영 리소스가 비교적 무겁다.</td><td>Apache 2.0</td><td>○</td></tr>
+                        <tr><td><span class="tag tag-be">BE</span></td><td>NestJS</td><td>TypeScript 기반 구조화가 좋고 FE와 언어 통일이 가능하다.</td><td>초대형 트랜잭션/배치 환경 레퍼런스는 Spring보다 적다.</td><td>MIT</td><td>△</td></tr>
+                        <tr><td><span class="tag tag-be">BE</span></td><td>FastAPI</td><td>개발 생산성과 문서 자동화가 뛰어나고 ML 연계에 유리하다.</td><td>대규모 조직 표준화와 장기 운영 체계는 추가 보완이 필요하다.</td><td>MIT</td><td>△</td></tr>
+
+                        <tr><td><span class="tag tag-db">DB</span></td><td>PostgreSQL</td><td>표준 준수와 확장성이 높고 JSON/분석 기능도 우수하다.</td><td>운영팀 경험이 부족하면 튜닝 난도가 있을 수 있다.</td><td>PostgreSQL License</td><td>○</td></tr>
+                        <tr><td><span class="tag tag-db">DB</span></td><td>MySQL</td><td>운영 인력이 많고 보편적이며 구축 경험을 확보하기 쉽다.</td><td>복잡한 분석성 쿼리나 고급 확장 기능은 제한적일 수 있다.</td><td>GPL / Commercial</td><td>△</td></tr>
+                        <tr><td><span class="tag tag-db">DB</span></td><td>MongoDB</td><td>유연한 스키마와 문서 저장 구조로 빠른 변경 대응이 쉽다.</td><td>정형 데이터와 강한 트랜잭션 요구에는 부적합할 수 있다.</td><td>SSPL</td><td>△</td></tr>
+
+                        <tr><td><span class="tag tag-infra">Cache</span></td><td>Redis</td><td>성능이 높고 자료구조가 다양해 세션/캐시/큐에 폭넓게 활용 가능하다.</td><td>메모리 중심 구조라 용량 계획이 중요하다.</td><td>RSAL 계열 / OSS 변형 검토 필요</td><td>○</td></tr>
+                        <tr><td><span class="tag tag-infra">Cache</span></td><td>Memcached</td><td>구조가 단순하고 캐시 전용으로 가볍다.</td><td>기능이 제한적이라 확장 활용성이 낮다.</td><td>BSD</td><td>△</td></tr>
+
+                        <tr><td><span class="tag tag-infra">Container</span></td><td>Kubernetes</td><td>확장성, 표준성, 멀티서비스 운영에 강하다.</td><td>운영 복잡도가 높고 학습 비용이 크다.</td><td>Apache 2.0</td><td>○</td></tr>
+                        <tr><td><span class="tag tag-infra">Container</span></td><td>ECS</td><td>AWS 환경에서 비교적 단순하게 컨테이너 운영이 가능하다.</td><td>클라우드 종속성이 커지고 세밀한 제어는 제한될 수 있다.</td><td>AWS Managed</td><td>△</td></tr>
+
+                        <tr><td><span class="tag tag-infra">CI/CD</span></td><td>GitHub Actions</td><td>저장소 연계가 쉽고 선언형 워크플로 구성에 유리하다.</td><td>복잡한 사내망 환경이나 레거시 통합은 Jenkins보다 제약이 있다.</td><td>GitHub Service</td><td>○</td></tr>
+                        <tr><td><span class="tag tag-infra">CI/CD</span></td><td>Jenkins</td><td>온프레미스/폐쇄망/복잡한 파이프라인 커스터마이징에 강하다.</td><td>운영 관리 부담과 플러그인 유지보수 비용이 크다.</td><td>MIT</td><td>△</td></tr>
+
+                        <tr><td><span class="tag tag-infra">Monitoring</span></td><td>Datadog</td><td>APM, 로그, 메트릭 통합이 편하고 구축 속도가 빠르다.</td><td>장기적으로 비용이 높아질 수 있다.</td><td>Commercial</td><td>△</td></tr>
+                        <tr><td><span class="tag tag-infra">Monitoring</span></td><td>Prometheus + Grafana</td><td>오픈소스 기반으로 유연하고 비용 통제가 용이하다.</td><td>초기 구축과 운영 표준화가 필요하다.</td><td>Apache 2.0 / AGPL</td><td>○</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="doc-section">
+            <h2>2. 선정 기준</h2>
+            <div class="info-box">
+                <strong>주요 선정 기준</strong>
+                <ul>
+                    <li>RFP 요구 적합성: 성능, 보안, 운영, 연계 요건 만족 여부</li>
+                    <li>조직 역량: 내부 개발자/운영자 숙련도와 외부 인력 수급성</li>
+                    <li>비용 구조: 라이선스, 운영비, 교육비, 전환 비용</li>
+                    <li>유지보수성: 장기 운영 시 표준화와 기술 부채 관리 가능성</li>
+                    <li>확장성: 서비스 확대, 기능 추가, 트래픽 증가 대응 가능성</li>
+                </ul>
+            </div>
+            <div class="example-box">
+                <div class="example-label">Example Selection Logic</div>
+                <p>대규모 공공업무 시스템처럼 복잡한 권한, 감사로그, 배치, 외부기관 연계가 많은 경우에는 Spring Boot + PostgreSQL + Redis + Kubernetes + Prometheus/Grafana 조합이 자주 권장된다.</p>
+            </div>
+            <div class="warn-box">라이선스는 기술 우수성만큼 중요하다. 특히 SSPL, 상용 SaaS, 클라우드 종속형 서비스는 발주기관 정책과 예산 구조에 맞는지 반드시 별도 검토해야 한다.</div>
+        </section>
+
+        <section class="doc-section">
+            <h2>3. AI 프롬프트 — 제품/플랫폼 검토</h2>
+            <div class="prompt-box">
+                <div class="prompt-label">Prompt Template</div>
+                <pre>다음 프로젝트 조건을 기준으로 기술 스택 비교표를 작성해줘.
+
+- 프로젝트 유형:
+- 예상 사용자/트래픽:
+- 핵심 기능:
+- 보안/컴플라이언스 요구:
+- 운영 환경(클라우드/온프레미스):
+- 내부 인력 역량:
+
+비교 대상은 다음을 포함해줘.
+- FE: React, Vue, Next.js
+- BE: Spring Boot, NestJS, FastAPI
+- DB: PostgreSQL, MySQL, MongoDB
+- Cache: Redis, Memcached
+- Container: Kubernetes, ECS
+- CI/CD: GitHub Actions, Jenkins
+- Monitoring: Datadog, Prometheus+Grafana
+
+조건:
+1) 각 항목별 장점, 단점, 라이선스, 권장 여부를 표로 작성
+2) 프로젝트 맥락에 맞는 선정 기준을 별도로 설명
+3) 공공/기업 프로젝트 문서에 들어갈 수준의 실무형 문장 사용</pre>
+                <p class="prompt-note">조직의 현재 기술 스택과 운영 인력 수준을 함께 주면 AI가 더 현실적인 권장 조합을 제안한다.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <a href="index.html">&larr; Case 1로 돌아가기</a>
+    </footer>
+</body>
+</html>
